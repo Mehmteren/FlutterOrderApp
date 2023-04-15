@@ -9,8 +9,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _kullaniciadi = TextEditingController();
+  final TextEditingController _sifre = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 15,
               ),
               TextField(
-                controller: _nameController,
+                controller: _kullaniciadi,
                 decoration: InputDecoration(
                   hintText: 'Kullanıcı Adınızı giriniz',
                   hintStyle: TextStyle(color: Colors.white),
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 10,
               ),
               TextField(
-                controller: _surnameController,
+                controller: _sifre,
                 decoration: InputDecoration(
                   hintText: 'Şifrenize Giriniz',
                   hintStyle: TextStyle(color: Colors.white),
@@ -93,8 +93,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     primary: Colors.lime,
                   ),
                   onPressed: () {
-                    String name = _nameController.text.trim();
-                    String surname = _surnameController.text.trim();
+                    String name = _kullaniciadi.text.trim();
+                    String surname = _sifre.text.trim();
                     if (name.isNotEmpty && surname.isNotEmpty) {
                       // Do something with the name and surname
                       print('Ad: $name, Soyad: $surname');
