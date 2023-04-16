@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             label: 'profil',
             icon: Icon(
-              Icons.people,
+              Icons.account_circle,
               size: 32,
             ),
           ),
@@ -175,7 +175,6 @@ class _HomePageState extends State<HomePage> {
                                           const DetailScreen()));
                             },
                             child: Container(
-                              alignment: Alignment.bottomCenter,
                               height: 180,
                               width: 170,
                               decoration: BoxDecoration(
@@ -189,8 +188,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  const Text(
+                                children: const [
+                                  Text(
                                     "Türk Mutfağı",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -233,21 +232,18 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Muhteşem!",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              SizedBox(
+                                height: 10,
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 180,
                                 child: Text(
                                   'Yeni bir uygulama aslında biraz çekiindim ancak ilk hizmetini konyaya vereceğini duyunca bir şans vermek istedim gerçektem çok başarılı',
@@ -285,21 +281,18 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Çok lezzetliydi!",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              SizedBox(
+                                height: 10,
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 180,
                                 child: Text(
                                   'normalde suşi sevmem ama bu bambaşka bir şeydi, indirim kuponu için teşekkürler umarım kaliteyi bozmazlar',

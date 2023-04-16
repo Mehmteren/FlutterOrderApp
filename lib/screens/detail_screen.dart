@@ -53,7 +53,6 @@ class _DetailScreenState extends State<DetailScreen> {
             Stack(
               children: [
                 SafeArea(
-                  top: false,
                   child: Column(
                     children: [
                       Container(

@@ -105,8 +105,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     } else {
                       // Show an error message
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
+                        const SnackBar(
+                          content: Text(
                               'Lütfen kullanıcı adınızı ve şifrenizi giriniz.'),
                         ),
                       );
