@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:yemekcii/screens/detail_screen.dart';
 import 'package:yemekcii/sepet/sepetim.dart';
 import 'package:yemekcii/ulkeleryemek/hint.dart';
+import 'package:yemekcii/ulkeleryemek/ispanya.dart';
 import 'package:yemekcii/ulkeleryemek/kore.dart';
 
 import '../komutes/bases.dart';
@@ -477,7 +478,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const DetailScreen()));
+                                                const IspanyaScreen()));
                                   },
                                   child: Container(
                                     height: 180,
@@ -487,7 +488,7 @@ class _HomePageState extends State<HomePage> {
                                       image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                          "assets/türky1.jpg",
+                                          "assets/isyanya.jpg",
                                         ),
                                       ),
                                     ),
@@ -495,53 +496,7 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: const [
                                         Text(
-                                          "Türk Mutfağı",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const DetailScreen()));
-                                  },
-                                  child: Container(
-                                    height: 180,
-                                    width: 170,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      image: const DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                          "assets/türky1.jpg",
-                                        ),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: const [
-                                        Text(
-                                          "Türk Mutfağı",
+                                          "ispanyol Mutfağı",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,
@@ -561,7 +516,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 35,
                     ),
                     Container(
                       height: 160,

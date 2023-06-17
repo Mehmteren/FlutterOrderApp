@@ -1,42 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ItalyanScreen extends StatefulWidget {
-  const ItalyanScreen({Key? key}) : super(key: key);
+class IspanyaScreen extends StatefulWidget {
+  const IspanyaScreen({Key? key}) : super(key: key);
 
   @override
-  State<ItalyanScreen> createState() => _ItalyanScreenState();
+  State<IspanyaScreen> createState() => _IspanyaScreenState();
 }
 
-class _ItalyanScreenState extends State<ItalyanScreen> {
+class _IspanyaScreenState extends State<IspanyaScreen> {
   List<Map<String, dynamic>> yemekListesi = [
     {
-      'ad': 'Lasgana',
-      'fiyat': '190 TL',
-      'aciklama':
-          'Kat kat yapılan bir makarna yemeğidir. Lazanya yapmak için genellikle makarna tabakaları, et sosu, beşamel sos ve rendelenmiş peynir kullanılır.',
-      'resim': 'assets/lasgana.jpg',
-    },
-    {
-      'ad': 'Ossobuco',
+      'ad': 'Paella',
       'fiyat': '320 TL',
       'aciklama':
-          'Bulgogi, Milana özgü bir yemektir. Bu yemek, jülyen doğranmış sebzeler, beyaz şarap, et suyu ve dana inciklerinin birleşimiyle yapılan bir yahni çeşididir. ',
-      'resim': 'assets/ossobuco.jpg',
+          ' Pirinç, tavuk, deniz ürünleri, sebzeler ve baharatların birleşiminden oluşan ünlü bir İspanyol yemeği.',
+      'resim': 'assets/paella.jpg',
     },
     {
-      'ad': 'Ravioli',
-      'fiyat': '410 TL',
+      'ad': 'Gazpacho',
+      'fiyat': '180 TL',
       'aciklama':
-          ' İçi doldurulmuş taze veya kuru makarna hamurlarından yapılan bir İtalyan yemeğidir. İç harcı genellikle peynir, et, sebze veya mantar gibi malzemelerden oluşur.',
+          'Soğuk domates çorbasıdır. Domates, biber, soğan, salatalık ve zeytinyağı gibi taze sebzelerin karışımıdır. ',
+      'resim': 'assets/gazpacho.jpg',
+    },
+    {
+      'ad': 'Patatas Bravas',
+      'fiyat': '220 TL',
+      'aciklama':
+          '  Kızarmış patates dilimleri üzerine acı sos ve mayonez sosuyla servis edilen popüler bir tapas yemeğidir.',
       'resim': 'assets/ravioli.jpg',
     },
     {
-      'ad': 'Risotto',
-      'fiyat': '540 TL',
+      'ad': 'Pisto',
+      'fiyat': '115 TL',
       'aciklama':
-          'Kremsi ve lezzetli bir pirinç yemeğidir. Ana malzeme olarak Arborio veya Carnaroli pirinci kullanılır ve genellikle sebzeler, et veya deniz ürünleriyle zenginleştirilir.',
-      'resim': 'assets/risotto.jpg',
+          ', Kızarmış kabak, patlıcan, biber ve domatesle yapılan bir sebze yemeğidir.',
+      'resim': 'assets/pisto.jpg',
     },
   ];
 
@@ -82,7 +82,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/lasgana.jpg"),
+                              image: AssetImage("assets/paella.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -110,14 +110,14 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Lasagna",
+                        "Paella",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "190 TL",
+                        "320 TL",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -130,7 +130,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Kat kat yapılan bir makarna yemeğidir. Lazanya yapmak için genellikle makarna tabakaları, et sosu, beşamel sos ve rendelenmiş peynir kullanılır.",
+                    "- Pirinç, tavuk, deniz ürünleri, sebzeler ve baharatların birleşiminden oluşan ünlü bir İspanyol yemeği.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -170,7 +170,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/ossobuco.jpg"),
+                              image: AssetImage("assets/gazpacho.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -198,14 +198,14 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Ossobuco",
+                        "Gazpacho",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "320 TL ",
+                        "180 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -218,7 +218,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "- Milana özgü bir yemektir. Bu yemek, jülyen doğranmış sebzeler, beyaz şarap, et suyu ve dana inciklerinin birleşimiyle yapılan bir yahni çeşididir.",
+                    "- Soğuk domates çorbasıdır. Domates, biber, soğan, salatalık ve zeytinyağı gibi taze sebzelerin karışımıdır.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -257,7 +257,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/ravioli.jpg"),
+                              image: AssetImage("assets/patatasbravas.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -285,14 +285,14 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Ravioli",
+                        "Patatas Bravas",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "410 TL ",
+                        "220 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -305,7 +305,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-İçi doldurulmuş taze veya kuru makarna hamurlarından yapılan bir İtalyan yemeğidir. İç harcı genellikle peynir, et, sebze veya mantar gibi malzemelerden oluşur.",
+                    "-Kızarmış patates dilimleri üzerine acı sos ve mayonez sosuyla servis edilen popüler bir tapas yemeğidir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -341,7 +341,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/risotto.jpg"),
+                              image: AssetImage("assets/pisto.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -369,14 +369,14 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "",
+                        "Pisto",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "540 TL ",
+                        "115 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -389,7 +389,7 @@ class _ItalyanScreenState extends State<ItalyanScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Kremsi ve lezzetli bir pirinç yemeğidir. Ana malzeme olarak Arborio veya Carnaroli pirinci kullanılır ve genellikle sebzeler, et veya deniz ürünleriyle zenginleştirilir.",
+                    "-Kızarmış kabak, patlıcan, biber ve domatesle yapılan bir sebze yemeğidir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
