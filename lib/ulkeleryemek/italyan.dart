@@ -1,42 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+class ItalyanScreen extends StatefulWidget {
+  const ItalyanScreen({Key? key}) : super(key: key);
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<ItalyanScreen> createState() => _ItalyanScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _ItalyanScreenState extends State<ItalyanScreen> {
   List<Map<String, dynamic>> yemekListesi = [
     {
-      'ad': 'Mercimek Çorbası',
-      'fiyat': '37 TL',
-      'aciklama':
-          'Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu\'nun en köklü tariflerinden biridir.',
-      'resim': 'assets/corba2.jpg',
-    },
-    {
-      'ad': 'Baklava',
-      'fiyat': '240 TL',
-      'aciklama':
-          'Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.',
-      'resim': 'assets/baklava2.jpg',
-    },
-    {
-      'ad': 'Kebap',
+      'ad': 'Lasgana',
       'fiyat': '190 TL',
       'aciklama':
-          'Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap...',
-      'resim': 'assets/kebab2.jpg',
+          'Kat kat yapılan bir makarna yemeğidir. Lazanya yapmak için genellikle makarna tabakaları, et sosu, beşamel sos ve rendelenmiş peynir kullanılır.',
+      'resim': 'assets/lasgana.jpg',
     },
     {
-      'ad': 'Kurufasulye',
-      'fiyat': '64 TL',
+      'ad': 'Ossobuco',
+      'fiyat': '320 TL',
       'aciklama':
-          'Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye...',
-      'resim': 'assets/kurrs2.jpg',
+          'Bulgogi, Milana özgü bir yemektir. Bu yemek, jülyen doğranmış sebzeler, beyaz şarap, et suyu ve dana inciklerinin birleşimiyle yapılan bir yahni çeşididir. ',
+      'resim': 'assets/ossobuco.jpg',
+    },
+    {
+      'ad': 'Ravioli',
+      'fiyat': '410 TL',
+      'aciklama':
+          ' İçi doldurulmuş taze veya kuru makarna hamurlarından yapılan bir İtalyan yemeğidir. İç harcı genellikle peynir, et, sebze veya mantar gibi malzemelerden oluşur.',
+      'resim': 'assets/ravioli.jpg',
+    },
+    {
+      'ad': 'Risotto',
+      'fiyat': '540 TL',
+      'aciklama':
+          'Kremsi ve lezzetli bir pirinç yemeğidir. Ana malzeme olarak Arborio veya Carnaroli pirinci kullanılır ve genellikle sebzeler, et veya deniz ürünleriyle zenginleştirilir.',
+      'resim': 'assets/risotto.jpg',
     },
   ];
 
@@ -63,10 +63,9 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Türk Yemekleri'),
+        title: const Text('Yemekcii Italyan Yemekleri'),
         // App Bar başlığı
       ),
-      // Set the background color here
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -83,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/corba2.jpg"),
+                              image: AssetImage("assets/lasgna.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -111,14 +110,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Mercimek Çorbası",
+                        "Lasagna",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "37 TL",
+                        "190 TL",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -131,7 +130,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu'nun en \n                            köklü tariflerinden biridir.",
+                    "-Kat kat yapılan bir makarna yemeğidir. Lazanya yapmak için genellikle makarna tabakaları, et sosu, beşamel sos ve rendelenmiş peynir kullanılır.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -171,7 +170,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/baklava2.jpg"),
+                              image: AssetImage("assets/ossobuco.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -199,14 +198,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Baklava",
+                        "Ossobuco",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "240 TL ",
+                        "320 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -219,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.",
+                    "- Milana özgü bir yemektir. Bu yemek, jülyen doğranmış sebzeler, beyaz şarap, et suyu ve dana inciklerinin birleşimiyle yapılan bir yahni çeşididir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -258,7 +257,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kebab2.jpg"),
+                              image: AssetImage("assets/ravioli.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -286,14 +285,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kebap",
+                        "Ravioli",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "190 TL ",
+                        "410 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -306,7 +305,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap, etin muhteşem aroması ve baharatlarla buluştuğu nefis bir yemektir. Biz, en özenli şekilde hazırlanan ve lezzetini koruyan kebapları sunarak damaklarınıza unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "-İçi doldurulmuş taze veya kuru makarna hamurlarından yapılan bir İtalyan yemeğidir. İç harcı genellikle peynir, et, sebze veya mantar gibi malzemelerden oluşur.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -342,7 +341,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kurrs2.jpg"),
+                              image: AssetImage("assets/risotto.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -370,14 +369,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kurufasulye",
+                        "",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "64 TL ",
+                        "540 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -390,7 +389,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye, doyurucu ve lezzetli bir seçenektir. Biz, en kaliteli ve doğal malzemelerle hazırladığımız kuru fasulyeyi sofralarınıza sunarak sizlere unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "-Kremsi ve lezzetli bir pirinç yemeğidir. Ana malzeme olarak Arborio veya Carnaroli pirinci kullanılır ve genellikle sebzeler, et veya deniz ürünleriyle zenginleştirilir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

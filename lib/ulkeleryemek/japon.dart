@@ -1,42 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+class JaponScreen extends StatefulWidget {
+  const JaponScreen({Key? key}) : super(key: key);
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<JaponScreen> createState() => _JaponScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _JaponScreenState extends State<JaponScreen> {
   List<Map<String, dynamic>> yemekListesi = [
     {
-      'ad': 'Mercimek Çorbası',
-      'fiyat': '37 TL',
+      'ad': 'Ramen',
+      'fiyat': '115 TL',
       'aciklama':
-          'Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu\'nun en köklü tariflerinden biridir.',
-      'resim': 'assets/corba2.jpg',
+          'Japon mutfağının popüler bir çorba yemeğidir. Ramen, tavuk, domuz eti veya deniz ürünleri ile yapılan çeşitli lezzetli çorba ve çeşitli garnitürlerle servis edilir. Noodle (erişte) ve çeşitli sebzeler de içerir.',
+      'resim': 'assets/ramen.jpg',
     },
     {
-      'ad': 'Baklava',
+      'ad': 'Tempura',
       'fiyat': '240 TL',
       'aciklama':
-          'Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.',
-      'resim': 'assets/baklava2.jpg',
+          'Hafif ve kıtır kıtır bir kızartma yemeğidir. Tempura, sebzeler, deniz ürünleri veya etin, hafif bir hamur ile kaplanıp kızartılmasıyla hazırlanır. Genellikle tempura sosuyla birlikte servis edilir.',
+      'resim': 'assets/tempura.jpg',
     },
     {
-      'ad': 'Kebap',
-      'fiyat': '190 TL',
+      'ad': 'Sukiyaki',
+      'fiyat': '360 TL',
       'aciklama':
-          'Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap...',
-      'resim': 'assets/kebab2.jpg',
+          ' Japon mutfağının geleneksel bir yemeğidir. Sukiyaki, ince dilimlenmiş et (genellikle dana eti), sebzeler, tofu ve çeşitli malzemelerin soya sosu, şeker ve sake ile pişirildiği bir tencere yemeğidir.',
+      'resim': 'assets/sukiyaki.jpg',
     },
     {
-      'ad': 'Kurufasulye',
-      'fiyat': '64 TL',
+      'ad': 'Yakitori',
+      'fiyat': '620 TL',
       'aciklama':
-          'Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye...',
-      'resim': 'assets/kurrs2.jpg',
+          ' Japon ızgarası olarak da bilinen yakitori, çeşitli tavuk etlerinin şişlere takılarak ızgarada pişirilmesiyle yapılan bir yemektir. Tavuk parçaları, soslu veya tuzlu olarak servis edilir.',
+      'resim': 'assets/yakitori.jpg',
     },
   ];
 
@@ -63,10 +63,9 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Türk Yemekleri'),
+        title: const Text('Yemekcii Japon Yemekleri'),
         // App Bar başlığı
       ),
-      // Set the background color here
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -83,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/corba2.jpg"),
+                              image: AssetImage("assets/yakitori.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -111,14 +110,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Mercimek Çorbası",
+                        "Yakitori",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "37 TL",
+                        "115 TL",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -131,7 +130,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu'nun en \n                            köklü tariflerinden biridir.",
+                    "Japon mutfağının popüler bir çorba yemeğidir. Ramen, tavuk, domuz eti veya deniz ürünleri ile yapılan çeşitli lezzetli çorba ve çeşitli garnitürlerle servis edilir. Noodle (erişte) ve çeşitli sebzeler de içerir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -171,7 +170,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/baklava2.jpg"),
+                              image: AssetImage("assets/tempura.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -199,7 +198,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Baklava",
+                        "Tempura",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
@@ -219,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.",
+                    "-Japon mutfağının popüler bir çorba yemeğidir. Ramen, tavuk, domuz eti veya deniz ürünleri ile yapılan çeşitli lezzetli çorba ve çeşitli garnitürlerle servis edilir. Noodle (erişte) ve çeşitli sebzeler de içerir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -258,7 +257,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kebab2.jpg"),
+                              image: AssetImage("assets/sukiyaki.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -286,14 +285,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kebap",
+                        "Sukiyaki",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "190 TL ",
+                        "360 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -306,7 +305,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap, etin muhteşem aroması ve baharatlarla buluştuğu nefis bir yemektir. Biz, en özenli şekilde hazırlanan ve lezzetini koruyan kebapları sunarak damaklarınıza unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "- Japon mutfağının geleneksel bir yemeğidir. Sukiyaki, ince dilimlenmiş et (genellikle dana eti), sebzeler, tofu ve çeşitli malzemelerin soya sosu, şeker ve sake ile pişirildiği bir tencere yemeğidir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -342,7 +341,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kurrs2.jpg"),
+                              image: AssetImage("assets/ramen.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -370,14 +369,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kurufasulye",
+                        "Ramen",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "64 TL ",
+                        "620 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -390,7 +389,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye, doyurucu ve lezzetli bir seçenektir. Biz, en kaliteli ve doğal malzemelerle hazırladığımız kuru fasulyeyi sofralarınıza sunarak sizlere unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "-Japon ızgarası olarak da bilinen yakitori, çeşitli tavuk etlerinin şişlere takılarak ızgarada pişirilmesiyle yapılan bir yemektir. Tavuk parçaları, soslu veya tuzlu olarak servis edilir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

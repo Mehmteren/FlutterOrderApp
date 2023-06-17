@@ -1,16 +1,75 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yemekcii/screens/homepage.dart';
 
+import '../scrpro/kullaniciprofl.dart';
+
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key, required String title}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
   final TextEditingController _kullaniciadi = TextEditingController();
   final TextEditingController _sifre = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+    _animationController.repeat(reverse: true); // Animasyonu sürekli tekrarla
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _kullaniciadi.dispose();
+    _sifre.dispose();
+    super.dispose();
+  }
+
+  Future<bool> validateCredentials() async {
+    String username = _kullaniciadi.text.trim();
+    String password = _sifre.text.trim();
+
+    bool isMatched = false;
+
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: username,
+        password: password,
+      );
+
+      if (userCredential.user != null) {
+        // Giriş başarılı
+        isMatched = true;
+      } else {
+        // Giriş başarısız
+        isMatched = false;
+      }
+    } catch (error) {
+      print(error);
+      // Hata durumunda da giriş başarısız olarak kabul edebilirsiniz
+      isMatched = false;
+    }
+
+    return isMatched;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              "assets/kapp.jpg",
-            ),
+            image: AssetImage("assets/kapp.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -32,22 +89,31 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           child: Column(
             children: [
-              const Text(
-                "Dünya Lezzetleri",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 44,
-                  fontWeight: FontWeight.bold,
-                ),
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return FadeTransition(
+                    opacity: _animation,
+                    child: const Text(
+                      "YEMEKCİİ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 54,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               const Text(
-                "Aradığın lezzet \n birtık uzağında ",
+                "Aradığın Dünya lezzetleri \n birtık uzağında ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
+                  fontSize: 17,
                   color: Colors.white,
                 ),
               ),
@@ -71,6 +137,9 @@ class _SplashScreenState extends State<SplashScreen> {
               const SizedBox(
                 height: 10,
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: _sifre,
                 decoration: InputDecoration(
@@ -86,38 +155,72 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(color: Colors.white),
               ),
               const SizedBox(
-                height: 10,
+                height: 25,
               ),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.lime,
-                  ),
-                  onPressed: () {
-                    String name = _kullaniciadi.text.trim();
-                    String surname = _sifre.text.trim();
-                    if (name.isNotEmpty && surname.isNotEmpty) {
-                      // Do something with the name and surname
-                      print('Ad: $name, Soyad: $surname');
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lime, // Butonun arka plan rengi
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 16,
+                  ), // Butonun iç içe yerleşmiş içeriği ile düğmenin kenarları arasındaki boşlukları belirler
+                ),
+                onPressed: () async {
+                  String name = _kullaniciadi.text.trim();
+                  String surname = _sifre.text;
+                  if (name.isNotEmpty && surname.isNotEmpty) {
+                    bool isCredentialsValid = await validateCredentials();
+                    if (isCredentialsValid) {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                      );
                     } else {
-                      // Show an error message
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(
-                              'Lütfen kullanıcı adınızı ve şifrenizi giriniz.'),
+                          content: Text('Geçersiz kullanıcı adı veya şifre.'),
                         ),
                       );
                     }
-                  },
-                  child: const Text(
-                    "Lezzeti Keşfet!",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ))
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Lütfen kullanıcı adınızı ve şifrenizi giriniz.'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  "Lezzeti Keşfet!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14, // Metin boyutunu belirler
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // Butonun arka plan rengi
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => KullaniciProfilPage()),
+                  );
+                },
+                child: const Text(
+                  "Hemen Kayıt Ol",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

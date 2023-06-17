@@ -1,42 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+class HintScreen extends StatefulWidget {
+  const HintScreen({Key? key}) : super(key: key);
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<HintScreen> createState() => _HintScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _HintScreenState extends State<HintScreen> {
   List<Map<String, dynamic>> yemekListesi = [
     {
-      'ad': 'Mercimek Çorbası',
-      'fiyat': '37 TL',
+      'ad': 'Butter Chicken',
+      'fiyat': '90 TL',
       'aciklama':
-          'Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu\'nun en köklü tariflerinden biridir.',
-      'resim': 'assets/corba2.jpg',
+          'Tandoor (kil fırın) veya tavada pişirilen marine edilmiş tavuk parçalarının, krema, domates sosu, tereyağı ve baharatlarla hazırlanan lezzetli bir yemeğidir.',
+      'resim': 'assets/butter.jpg',
     },
     {
-      'ad': 'Baklava',
-      'fiyat': '240 TL',
+      'ad': 'Biryani',
+      'fiyat': '115 TL',
       'aciklama':
-          'Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.',
-      'resim': 'assets/baklava2.jpg',
+          'Hindistanın ünlü pilav yemeğidir. Biryani baharatlarla tatlandırılmış pirinç, et ve çeşitli sebzelerin katmanlar halinde pişirilmesiyle yapılır.',
+      'resim': 'assets/biryani.jpg',
     },
     {
-      'ad': 'Kebap',
-      'fiyat': '190 TL',
+      'ad': 'Samosa',
+      'fiyat': '80 TL',
       'aciklama':
-          'Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap...',
-      'resim': 'assets/kebab2.jpg',
+          ' Hint mutfağının popüler atıştırmalıklarından biridir. Samosa, üçgen veya yarım ay şeklindeki hamurun içine patates, bezelye, sebzeler ve baharatların eklenmesiyle hazırlanan kızarmış bir atıştırmalıktır.',
+      'resim': 'assets/samosa.jpg',
     },
     {
-      'ad': 'Kurufasulye',
-      'fiyat': '64 TL',
+      'ad': 'Masala Chai',
+      'fiyat': '5 TL',
       'aciklama':
-          'Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye...',
-      'resim': 'assets/kurrs2.jpg',
+          ' Hint çayı olarak da bilinen masala chai, çayın Hindistan tarzında hazırlanmış aromalı bir çeşididir. Siyah çay, süt, baharatlar (tarçın, zencefil, karanfil, kakule) ve tatlandırıcılarla demlenerek yapılır.',
+      'resim': 'assets/masala.jpg',
     },
   ];
 
@@ -63,10 +63,9 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Türk Yemekleri'),
+        title: const Text('Yemekcii Hint Yemekleri'),
         // App Bar başlığı
       ),
-      // Set the background color here
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -83,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/corba2.jpg"),
+                              image: AssetImage("assets/butter.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -111,14 +110,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Mercimek Çorbası",
+                        "Butter Chicken",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "37 TL",
+                        "90 TL",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -131,7 +130,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu'nun en \n                            köklü tariflerinden biridir.",
+                    " Tandoor (kil fırın) veya tavada pişirilen marine edilmiş tavuk parçalarının, krema, domates sosu, tereyağı ve baharatlarla hazırlanan lezzetli bir yemeğidir.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -171,7 +170,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/baklava2.jpg"),
+                              image: AssetImage("assets/biryani.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -199,14 +198,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Baklava",
+                        "Biryani",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "240 TL ",
+                        "115 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -219,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.",
+                    "Hindistan'ın ünlü pilav yemeğidir. Biryani, baharatlarla tatlandırılmış pirinç, et (genellikle tavuk, dana eti veya kuzu) ve çeşitli sebzelerin katmanlar halinde pişirilmesiyle yapılır.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -258,7 +257,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kebab2.jpg"),
+                              image: AssetImage("assets/samosa.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -286,14 +285,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kebap",
+                        "Samosa",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "190 TL ",
+                        "80 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -306,7 +305,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap, etin muhteşem aroması ve baharatlarla buluştuğu nefis bir yemektir. Biz, en özenli şekilde hazırlanan ve lezzetini koruyan kebapları sunarak damaklarınıza unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "-  Hint mutfağının popüler atıştırmalıklarından biridir. Samosa, üçgen veya yarım ay şeklindeki hamurun içine patates, bezelye, sebzeler ve baharatların eklenmesiyle hazırlanan kızarmış bir atıştırmalıktır.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -342,7 +341,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 180,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/kurrs2.jpg"),
+                              image: AssetImage("assets/masala.jpg"),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.only(
@@ -370,14 +369,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        "Kurufasulye",
+                        "Masala Chai",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "64 TL ",
+                        "5 TL ",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
@@ -390,7 +389,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "-Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye, doyurucu ve lezzetli bir seçenektir. Biz, en kaliteli ve doğal malzemelerle hazırladığımız kuru fasulyeyi sofralarınıza sunarak sizlere unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
+                    "-Hint çayı olarak da bilinen masala chai, çayın Hindistan tarzında hazırlanmış aromalı bir çeşididir. Siyah çay, süt, baharatlar (tarçın, zencefil, karanfil, kakule) ve tatlandırıcılarla demlenerek yapılır.",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

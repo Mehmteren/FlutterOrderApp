@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yemekcii/screens/detail_screen.dart';
+import 'package:yemekcii/sepet/sepetim.dart';
+import 'package:yemekcii/ulkeleryemek/hint.dart';
+import 'package:yemekcii/ulkeleryemek/kore.dart';
+
+import '../komutes/bases.dart';
+import '../ulkeleryemek/italyan.dart';
+import '../ulkeleryemek/japon.dart';
+
+void openWebsite() async {
+  var url = 'https://tr.euronews.com/tag/gastronomi';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'İnternet sitesi açılamadı: $url';
+  }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  State<HomePage> createState() =>
+      _HomePageState(); //HomePage adında bir StatefulWidget oluşturulur. Bu, Flutter uygulamasında bir widget'in durumunu tutabilen bir sınıftır.
+} //_HomePageState adında bir State sınıfı oluşturulur. Bu sınıf, HomePage widget'ının durumunu tutar.
 
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    //build metodu, ana sayfanın görüntüsünü oluşturur.
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.lime,
-        unselectedItemColor: Colors.lime,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
+        selectedItemColor: Colors.lime[600],
+        unselectedItemColor: Colors.lime[600],
+        backgroundColor: Colors.lime[50],
         items: const [
           BottomNavigationBarItem(
             label: 'profil',
@@ -40,8 +58,33 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BasePage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailScreen(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailScreen(),
+              ),
+            );
+          }
+        },
       ),
       body: SingleChildScrollView(
+        //sayfada dikey kaydırmayı sağlar.
         child: Stack(
           children: [
             SafeArea(
@@ -56,13 +99,41 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.shopping_bag_outlined,
-                          size: 32,
+                        InkWell(
+                          onLongPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SepetimPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Icon(
+                              Icons.shopping_bag,
+                              size: 32,
+                              color: Colors.lime[500],
+                            ),
+                          ),
                         ),
-                        const Icon(
-                          Icons.settings,
-                          size: 32,
+                        InkWell(
+                          onLongPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SepetimPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Icon(
+                              Icons.settings,
+                              size: 32,
+                              color: Colors.lime[500],
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -83,25 +154,8 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.search,
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey[300],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
                     const SizedBox(
-                      height: 25,
+                      height: 40,
                     ),
                     Row(
                       children: [
@@ -110,31 +164,48 @@ class _HomePageState extends State<HomePage> {
                           width: 70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Colors.lime.withOpacity(0.9),
+                            color: Colors.lime[300],
                           ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.account_balance_wallet,
-                              size: 32,
-                              color: Colors.white,
+                          child: ListTile(
+                            onTap: () {
+                              openWebsite();
+                            },
+                            title: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.restaurant,
+                                  size: 32,
+                                  color: Colors.white,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                         const SizedBox(
                           width: 20,
                         ),
-                        Container(
-                          height: 70,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.lime.withOpacity(0.7),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.food_bank,
-                              size: 32,
-                              color: Colors.white,
+                        GestureDetector(
+                          onDoubleTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 70,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.lime[300],
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.food_bank,
+                                size: 32,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -160,48 +231,331 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DetailScreen()));
-                            },
-                            child: Container(
-                              height: 180,
-                              width: 170,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                image: const DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    "assets/türky1.jpg",
-                                  ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  Text(
-                                    "Türk Mutfağı",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ItalyanScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/italyanyemekleri.png",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "İtalyan Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DetailScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/türky1.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Türk Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const KoreScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/koreko.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Kore Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const JaponScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/japon.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Japon Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HintScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/hint.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Hint Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DetailScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/türky1.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Türk Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DetailScreen()));
+                                  },
+                                  child: Container(
+                                    height: 180,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: const DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          "assets/türky1.jpg",
+                                        ),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: const [
+                                        Text(
+                                          "Türk Mutfağı",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -247,7 +601,8 @@ class _HomePageState extends State<HomePage> {
                                 width: 180,
                                 child: Text(
                                   'Yeni bir uygulama aslında biraz çekiindim ancak ilk hizmetini konyaya vereceğini duyunca bir şans vermek istedim gerçektem çok başarılı',
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow
+                                      .clip, //metin içeriğinin kutucuktan taşması durumunda metin kesilecek ve kırpılacak. TAŞMALAR ÖNLENMESİ İÇİN KULLANDIM YANİ
                                 ),
                               ),
                             ],
@@ -303,6 +658,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                   ],
                 ),

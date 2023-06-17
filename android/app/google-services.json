@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "831856121129",
+    "project_id": "yemekcii",
+    "storage_bucket": "yemekcii.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831856121129:android:93a91467d061ba785e5338",
+        "android_client_info": {
+          "package_name": "com.example.yemekcii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831856121129-7ad5bops4vlpe66akf3k5e2msgik3vcn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yemekcii",
+            "certificate_hash": "4724484e37c93182bffdda816ac5558a2314897b"
+          }
+        },
+        {
+          "client_id": "831856121129-vft3972aae7u3vdtsrahefutf2okph8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFSFPT7Qb-nbnK4jQcmHibZpmOoiKTmMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831856121129-vft3972aae7u3vdtsrahefutf2okph8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
