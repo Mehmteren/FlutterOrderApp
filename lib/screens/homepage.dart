@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:yemekcii/aciklama.dart';
 import 'package:yemekcii/screens/detail_screen.dart';
 import 'package:yemekcii/sepet/sepetim.dart';
 import 'package:yemekcii/ulkeleryemek/hint.dart';
@@ -9,6 +10,7 @@ import 'package:yemekcii/ulkeleryemek/kore.dart';
 import '../komutes/bases.dart';
 import '../ulkeleryemek/italyan.dart';
 import '../ulkeleryemek/japon.dart';
+import '../ulkeleryemek/konya.dart';
 
 void openWebsite() async {
   var url = 'https://tr.euronews.com/tag/gastronomi';
@@ -38,23 +40,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.lime[50],
         items: const [
           BottomNavigationBarItem(
-            label: 'profil',
+            label: 'Notlar',
             icon: Icon(
-              Icons.account_circle,
+              Icons.create,
               size: 32,
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Siparişini Takip Et',
+            label: 'Hakkımızda',
             icon: Icon(
-              Icons.motorcycle_sharp,
-              size: 32,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Favoriler',
-            icon: Icon(
-              Icons.favorite_outline,
+              Icons.text_snippet,
               size: 32,
             ),
           ),
@@ -71,14 +66,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailScreen(),
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailScreen(),
+                builder: (context) => AciklamaPage(),
               ),
             );
           }
@@ -100,69 +88,9 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InkWell(
-                          onLongPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SepetimPage(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Icon(
-                              Icons.shopping_bag,
-                              size: 32,
-                              color: Colors.lime[500],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onLongPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SepetimPage(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Icon(
-                              Icons.settings,
-                              size: 32,
-                              color: Colors.lime[500],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      child: Row(
-                        children: const [
-                          Text(
-                            "Sepetim",
-                            style: TextStyle(fontSize: 16),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      children: [
                         Container(
-                          height: 70,
-                          width: 70,
+                          height: 54,
+                          width: 64,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Colors.lime[300],
@@ -174,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                             title: Row(
                               children: <Widget>[
                                 Icon(
-                                  Icons.restaurant,
+                                  Icons.newspaper,
                                   size: 32,
                                   color: Colors.white,
                                 ),
@@ -182,46 +110,41 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
+                        const SizedBox(height: 40),
                         GestureDetector(
                           onDoubleTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailScreen(),
+                                builder: (context) => SepetimPage(),
                               ),
                             );
                           },
                           child: Container(
-                            height: 70,
-                            width: 70,
+                            height: 54,
+                            width: 64,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.lime[300],
                             ),
                             child: const Center(
                               child: Icon(
-                                Icons.food_bank,
-                                size: 32,
+                                Icons.shopping_bag,
+                                size: 28,
                                 color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 80,
                     ),
                     Row(
                       children: const [
                         Text(
-                          "Yemek Katogorileri",
+                          "Yabancı Yemek Katogorileri",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -230,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 25,
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -267,52 +190,6 @@ class _HomePageState extends State<HomePage> {
                                       children: const [
                                         Text(
                                           "İtalyan Mutfağı",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const DetailScreen()));
-                                  },
-                                  child: Container(
-                                    height: 180,
-                                    width: 170,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      image: const DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                          "assets/türky1.jpg",
-                                        ),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: const [
-                                        Text(
-                                          "Türk Mutfağı",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,
@@ -516,7 +393,103 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 35,
+                      height: 40,
+                    ),
+                    Row(
+                      children: const [
+                        Text(
+                          "Yöresel Yemek Katogorileri",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const KonyaScreen()),
+                              );
+                            },
+                            child: Container(
+                              height: 190,
+                              width: 360,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/gonya.png"),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: const [
+                                  Text(
+                                    "Konya Mutfağı",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const DetailScreen()),
+                              );
+                            },
+                            child: Container(
+                              height: 190,
+                              width: 360,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/türky1.jpg"),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: const [
+                                  Text(
+                                    "Türk Mutfağı",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 60,
                     ),
                     Container(
                       height: 160,
@@ -531,7 +504,7 @@ class _HomePageState extends State<HomePage> {
                               image: const DecorationImage(
                                 fit: BoxFit.cover,
                                 image: AssetImage(
-                                  "assets/mahbur.jpg",
+                                  "assets/dugunpilav.jpg",
                                 ),
                               ),
                             ),
@@ -543,7 +516,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                "Muhteşem!",
+                                "Muhteşem!        5/5",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
@@ -593,7 +566,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                "Çok lezzetliydi!",
+                                "Çok lezzetliydi!          4/5",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,

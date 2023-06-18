@@ -10,7 +10,7 @@ class SepetimPage extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           title: const Text('Silme Onayı'),
-          content: const Text('Bu yemeği sepetinizden silmek istiyor musunuz?'),
+          content: const Text('Bu yemeği favorilerden silmek istiyor musunuz?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -32,7 +32,7 @@ class SepetimPage extends StatelessWidget {
     if (result == true) {
       await FirebaseFirestore.instance.collection('Sepet').doc(docId).delete();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bir yemek silindi')),
+        const SnackBar(content: Text('Bir favori silindi')),
       );
     }
   }
@@ -42,7 +42,7 @@ class SepetimPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime[300],
-        title: const Text('Sepetim'),
+        title: const Text('Favorilerim'),
       ),
       body: Stack(
         children: [
@@ -68,7 +68,7 @@ class SepetimPage extends StatelessWidget {
               if (sepetVerileri.isEmpty) {
                 return const Center(
                   child: Text(
-                    "Sepetiniz Boş",
+                    "Favorileriniz boş Boş",
                     style: TextStyle(
                       fontSize: 33,
                       fontWeight: FontWeight.bold,
