@@ -7,13 +7,14 @@ import 'package:yemekcii/ulkeleryemek/hint.dart';
 import 'package:yemekcii/ulkeleryemek/ispanya.dart';
 import 'package:yemekcii/ulkeleryemek/kore.dart';
 
+import '../favori.dart';
 import '../komutes/bases.dart';
 import '../ulkeleryemek/italyan.dart';
 import '../ulkeleryemek/japon.dart';
 import '../ulkeleryemek/konya.dart';
 
 void openWebsite() async {
-  var url = 'https://tr.euronews.com/tag/gastronomi';
+  var url = 'https://www.youtube.com/shorts/Z9YXeyrKnZw';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -47,6 +48,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           BottomNavigationBarItem(
+            label: 'Notlar',
+            icon: Icon(
+              Icons.favorite,
+              size: 32,
+            ),
+          ),
+          BottomNavigationBarItem(
             label: 'Hakkımızda',
             icon: Icon(
               Icons.text_snippet,
@@ -63,6 +71,13 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FavoriPage(),
+              ),
+            );
+          } else if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -89,8 +104,8 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 54,
-                          width: 64,
+                          height: 64,
+                          width: 154,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: Colors.lime[300],
@@ -100,10 +115,13 @@ class _HomePageState extends State<HomePage> {
                               openWebsite();
                             },
                             title: Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // İkonu sağa hizalama
                               children: <Widget>[
+                                // İkon ile container arasına boşluk eklemek için SizedBox
                                 Icon(
                                   Icons.newspaper,
-                                  size: 32,
+                                  size: 50,
                                   color: Colors.white,
                                 ),
                               ],
@@ -121,17 +139,11 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           child: Container(
-                            height: 54,
-                            width: 64,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.lime[300],
-                            ),
                             child: const Center(
                               child: Icon(
                                 Icons.shopping_bag,
-                                size: 28,
-                                color: Colors.white,
+                                size: 38,
+                                color: Colors.lime,
                               ),
                             ),
                           ),
@@ -139,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 80,
+                      height: 55,
                     ),
                     Row(
                       children: const [
@@ -373,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: const [
                                         Text(
-                                          "ispanyol Mutfağı",
+                                          "İspanyol\n Mutfağı",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 24,
@@ -384,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  width: 5,
                                 ),
                               ],
                             ),

@@ -39,22 +39,45 @@ class _JaponScreenState extends State<JaponScreen> {
       'resim': 'assets/yakitori.jpg',
     },
   ];
+  List<bool> isFavoriteList = [false, false, false, false];
 
   Future<void> sepeteEkle(int index) async {
     try {
       final yemek = yemekListesi[index];
-      await FirebaseFirestore.instance
-          .collection('Sepet')
-          .doc('sepette_$index')
-          .set({
+      await FirebaseFirestore.instance.collection('Sepet').add({
         'yemek': yemek['ad'],
         'fiyat': yemek['fiyat'],
         'aciklama': yemek['aciklama'],
         'resim': yemek['resim'],
       });
-      print('${yemek['ad']} sepete eklendi.');
+      print('${yemek['ad']} eklendi.');
     } catch (e) {
       print('Hata: $e');
+    }
+  }
+
+  Future<void> favla(int index) async {
+    try {
+      final yemek = yemekListesi[index];
+      await FirebaseFirestore.instance.collection('Favori').add({
+        'yemek': yemek['ad'],
+        'fiyat': yemek['fiyat'],
+        'aciklama': yemek['aciklama'],
+        'resim': yemek['resim'],
+      });
+      print('${yemek['ad']} eklendi.');
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  void toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+
+    if (isFavoriteList[index]) {
+      favla(index);
     }
   }
 
@@ -64,11 +87,11 @@ class _JaponScreenState extends State<JaponScreen> {
       appBar: AppBar(
         backgroundColor: Colors.lime,
         title: const Text('Yemekcii Japon Yemekleri'),
-        // App Bar başlığı
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // İlk yemek kartı
             Stack(
               children: [
                 SafeArea(
@@ -81,16 +104,33 @@ class _JaponScreenState extends State<JaponScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/yakitori.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/ramen.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(0);
+                    },
+                    icon: Icon(
+                      isFavoriteList[0]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -108,17 +148,17 @@ class _JaponScreenState extends State<JaponScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Yakitori",
-                        style: TextStyle(
+                        yemekListesi[0]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "115 TL",
-                        style: TextStyle(
+                        yemekListesi[0]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -129,9 +169,9 @@ class _JaponScreenState extends State<JaponScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Japon mutfağının popüler bir çorba yemeğidir. Ramen, tavuk, domuz eti veya deniz ürünleri ile yapılan çeşitli lezzetli çorba ve çeşitli garnitürlerle servis edilir. Noodle (erişte) ve çeşitli sebzeler de içerir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[0]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -144,18 +184,14 @@ class _JaponScreenState extends State<JaponScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () =>
-                          sepeteEkle(0), // Mercimek Çorbası için indeks 0
-                      child: Text(
+                      onPressed: () => sepeteEkle(0),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -169,16 +205,33 @@ class _JaponScreenState extends State<JaponScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/tempura.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/tempura.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(1);
+                    },
+                    icon: Icon(
+                      isFavoriteList[1]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -196,17 +249,17 @@ class _JaponScreenState extends State<JaponScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Tempura",
-                        style: TextStyle(
+                        yemekListesi[1]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "240 TL ",
-                        style: TextStyle(
+                        yemekListesi[1]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -217,9 +270,9 @@ class _JaponScreenState extends State<JaponScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Japon mutfağının popüler bir çorba yemeğidir. Ramen, tavuk, domuz eti veya deniz ürünleri ile yapılan çeşitli lezzetli çorba ve çeşitli garnitürlerle servis edilir. Noodle (erişte) ve çeşitli sebzeler de içerir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[1]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -233,16 +286,13 @@ class _JaponScreenState extends State<JaponScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(1),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -256,16 +306,33 @@ class _JaponScreenState extends State<JaponScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/sukiyaki.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/sukiyaki.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(2);
+                    },
+                    icon: Icon(
+                      isFavoriteList[2]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -283,17 +350,17 @@ class _JaponScreenState extends State<JaponScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Sukiyaki",
-                        style: TextStyle(
+                        yemekListesi[2]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "360 TL ",
-                        style: TextStyle(
+                        yemekListesi[2]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -304,9 +371,9 @@ class _JaponScreenState extends State<JaponScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "- Japon mutfağının geleneksel bir yemeğidir. Sukiyaki, ince dilimlenmiş et (genellikle dana eti), sebzeler, tofu ve çeşitli malzemelerin soya sosu, şeker ve sake ile pişirildiği bir tencere yemeğidir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[2]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -320,7 +387,7 @@ class _JaponScreenState extends State<JaponScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(2),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
@@ -340,16 +407,33 @@ class _JaponScreenState extends State<JaponScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/ramen.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/yakitori.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(3);
+                    },
+                    icon: Icon(
+                      isFavoriteList[3]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -367,17 +451,17 @@ class _JaponScreenState extends State<JaponScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Ramen",
-                        style: TextStyle(
+                        yemekListesi[3]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "620 TL ",
-                        style: TextStyle(
+                        yemekListesi[3]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -388,9 +472,9 @@ class _JaponScreenState extends State<JaponScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Japon ızgarası olarak da bilinen yakitori, çeşitli tavuk etlerinin şişlere takılarak ızgarada pişirilmesiyle yapılan bir yemektir. Tavuk parçaları, soslu veya tuzlu olarak servis edilir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[3]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -404,13 +488,10 @@ class _JaponScreenState extends State<JaponScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),

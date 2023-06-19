@@ -39,22 +39,45 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
       'resim': 'assets/pisto.jpg',
     },
   ];
+  List<bool> isFavoriteList = [false, false, false, false];
 
   Future<void> sepeteEkle(int index) async {
     try {
       final yemek = yemekListesi[index];
-      await FirebaseFirestore.instance
-          .collection('Sepet')
-          .doc('sepette_$index')
-          .set({
+      await FirebaseFirestore.instance.collection('Sepet').add({
         'yemek': yemek['ad'],
         'fiyat': yemek['fiyat'],
         'aciklama': yemek['aciklama'],
         'resim': yemek['resim'],
       });
-      print('${yemek['ad']} sepete eklendi.');
+      print('${yemek['ad']} eklendi.');
     } catch (e) {
       print('Hata: $e');
+    }
+  }
+
+  Future<void> favla(int index) async {
+    try {
+      final yemek = yemekListesi[index];
+      await FirebaseFirestore.instance.collection('Favori').add({
+        'yemek': yemek['ad'],
+        'fiyat': yemek['fiyat'],
+        'aciklama': yemek['aciklama'],
+        'resim': yemek['resim'],
+      });
+      print('${yemek['ad']} eklendi.');
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  void toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+
+    if (isFavoriteList[index]) {
+      favla(index);
     }
   }
 
@@ -63,12 +86,12 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Italyan Yemekleri'),
-        // App Bar başlığı
+        title: const Text('Yemekcii Türkiye Yemekleri'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // İlk yemek kartı
             Stack(
               children: [
                 SafeArea(
@@ -81,16 +104,33 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/paella.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/paella.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(0);
+                    },
+                    icon: Icon(
+                      isFavoriteList[0]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -108,17 +148,17 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Paella",
-                        style: TextStyle(
+                        yemekListesi[0]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "320 TL",
-                        style: TextStyle(
+                        yemekListesi[0]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -129,9 +169,9 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "- Pirinç, tavuk, deniz ürünleri, sebzeler ve baharatların birleşiminden oluşan ünlü bir İspanyol yemeği.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[0]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -144,18 +184,14 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () =>
-                          sepeteEkle(0), // Mercimek Çorbası için indeks 0
-                      child: Text(
+                      onPressed: () => sepeteEkle(0),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -169,16 +205,33 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/gazpacho.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/gazpacho.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(1);
+                    },
+                    icon: Icon(
+                      isFavoriteList[1]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -196,17 +249,17 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Gazpacho",
-                        style: TextStyle(
+                        yemekListesi[1]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "180 TL ",
-                        style: TextStyle(
+                        yemekListesi[1]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -217,9 +270,9 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "- Soğuk domates çorbasıdır. Domates, biber, soğan, salatalık ve zeytinyağı gibi taze sebzelerin karışımıdır.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[1]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -233,16 +286,13 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(1),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -256,16 +306,33 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/patatasbravas.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/ravioli.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(2);
+                    },
+                    icon: Icon(
+                      isFavoriteList[2]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -283,17 +350,17 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Patatas Bravas",
-                        style: TextStyle(
+                        yemekListesi[2]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "220 TL ",
-                        style: TextStyle(
+                        yemekListesi[2]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -304,9 +371,9 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Kızarmış patates dilimleri üzerine acı sos ve mayonez sosuyla servis edilen popüler bir tapas yemeğidir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[2]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -320,7 +387,7 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(2),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
@@ -340,16 +407,33 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/pisto.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/pisto.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(3);
+                    },
+                    icon: Icon(
+                      isFavoriteList[3]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -367,17 +451,17 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Pisto",
-                        style: TextStyle(
+                        yemekListesi[3]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "115 TL ",
-                        style: TextStyle(
+                        yemekListesi[3]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -388,9 +472,9 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Kızarmış kabak, patlıcan, biber ve domatesle yapılan bir sebze yemeğidir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[3]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -404,13 +488,10 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),

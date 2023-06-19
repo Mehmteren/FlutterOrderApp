@@ -70,6 +70,7 @@ class SepetimPage extends StatelessWidget {
                   child: Text(
                     "Sepetiniz Boş",
                     style: TextStyle(
+                      color: Colors.black54,
                       fontSize: 33,
                       fontWeight: FontWeight.bold,
                     ),

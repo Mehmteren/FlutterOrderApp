@@ -40,21 +40,45 @@ class _DetailScreenState extends State<DetailScreen> {
     },
   ];
 
+  List<bool> isFavoriteList = [false, false, false, false];
+
   Future<void> sepeteEkle(int index) async {
     try {
       final yemek = yemekListesi[index];
-      await FirebaseFirestore.instance
-          .collection('Sepet')
-          .doc('sepette_$index')
-          .set({
+      await FirebaseFirestore.instance.collection('Sepet').add({
         'yemek': yemek['ad'],
         'fiyat': yemek['fiyat'],
         'aciklama': yemek['aciklama'],
         'resim': yemek['resim'],
       });
-      print('${yemek['ad']} sepete eklendi.');
+      print('${yemek['ad']} eklendi.');
     } catch (e) {
       print('Hata: $e');
+    }
+  }
+
+  Future<void> favla(int index) async {
+    try {
+      final yemek = yemekListesi[index];
+      await FirebaseFirestore.instance.collection('Favori').add({
+        'yemek': yemek['ad'],
+        'fiyat': yemek['fiyat'],
+        'aciklama': yemek['aciklama'],
+        'resim': yemek['resim'],
+      });
+      print('${yemek['ad']} eklendi.');
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  void toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+
+    if (isFavoriteList[index]) {
+      favla(index);
     }
   }
 
@@ -63,13 +87,12 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Türk Yemekleri'),
-        // App Bar başlığı
+        title: const Text('Yemekcii Türkiye Yemekleri'),
       ),
-      // Set the background color here
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // İlk yemek kartı
             Stack(
               children: [
                 SafeArea(
@@ -82,16 +105,33 @@ class _DetailScreenState extends State<DetailScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/corba2.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/corba2.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(0);
+                    },
+                    icon: Icon(
+                      isFavoriteList[0]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -109,17 +149,17 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Mercimek Çorbası",
-                        style: TextStyle(
+                        yemekListesi[0]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "37 TL",
-                        style: TextStyle(
+                        yemekListesi[0]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -130,9 +170,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Lezzetin, sağlığın ve besleyici bir öğünün bir araya geldiği Türk mutfağının vazgeçilmezlerinden biri olan mercimek çorbası, sofralara hem sıcaklık hem de tat katıyor. Bu eşsiz lezzet, yüzlerce yıllık geçmişiyle Anadolu'nun en \n                            köklü tariflerinden biridir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[0]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -145,18 +185,14 @@ class _DetailScreenState extends State<DetailScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () =>
-                          sepeteEkle(0), // Mercimek Çorbası için indeks 0
-                      child: Text(
+                      onPressed: () => sepeteEkle(0),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -170,16 +206,33 @@ class _DetailScreenState extends State<DetailScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/baklava2.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/baklava2.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(1);
+                    },
+                    icon: Icon(
+                      isFavoriteList[1]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -197,17 +250,17 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Baklava",
-                        style: TextStyle(
+                        yemekListesi[1]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "240 TL ",
-                        style: TextStyle(
+                        yemekListesi[1]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -218,9 +271,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Bizim baklavalarımız, özenle seçilen en kaliteli malzemelerle ve ustalıkla hazırlanır. Taze tereyağı, dışarıdan temin edilen taptaze çekilmiş cevizler veya fıstıklar, özenle hazırlanan şerbet ve özel olarak inceltilmiş hamurlarla yapılır. Geleneksel yöntemlerle üretim yaparak, tüm detaylara özen gösterir ve baklavanın lezzetini koruruz.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[1]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -234,16 +287,13 @@ class _DetailScreenState extends State<DetailScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(1),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -257,16 +307,33 @@ class _DetailScreenState extends State<DetailScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/kebab2.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/kebab2.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(2);
+                    },
+                    icon: Icon(
+                      isFavoriteList[2]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -284,17 +351,17 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Kebap",
-                        style: TextStyle(
+                        yemekListesi[2]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "190 TL ",
-                        style: TextStyle(
+                        yemekListesi[2]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -305,9 +372,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Türk mutfağının en meşhur ve sevilen lezzetlerinden biri olan kebap, etin muhteşem aroması ve baharatlarla buluştuğu nefis bir yemektir. Biz, en özenli şekilde hazırlanan ve lezzetini koruyan kebapları sunarak damaklarınıza unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[2]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -321,7 +388,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(2),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
@@ -341,16 +408,33 @@ class _DetailScreenState extends State<DetailScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/kurrs2.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/kurrs2.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(3);
+                    },
+                    icon: Icon(
+                      isFavoriteList[3]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -368,17 +452,17 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Kurufasulye",
-                        style: TextStyle(
+                        yemekListesi[3]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "64 TL ",
-                        style: TextStyle(
+                        yemekListesi[3]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -389,9 +473,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Türk mutfağının en sevilen ve geleneksel yemeklerinden biri olan kuru fasulye, doyurucu ve lezzetli bir seçenektir. Biz, en kaliteli ve doğal malzemelerle hazırladığımız kuru fasulyeyi sofralarınıza sunarak sizlere unutulmaz bir lezzet deneyimi yaşatmayı hedefliyoruz.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[3]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -405,13 +489,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),

@@ -67,22 +67,54 @@ class _KonyaScreenState extends State<KonyaScreen> {
       'resim': 'assets/tirit.jpg',
     },
   ];
+  List<bool> isFavoriteList = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   Future<void> sepeteEkle(int index) async {
     try {
       final yemek = yemekListesi[index];
-      await FirebaseFirestore.instance
-          .collection('Sepet')
-          .doc('sepette_$index')
-          .set({
+      await FirebaseFirestore.instance.collection('Sepet').add({
         'yemek': yemek['ad'],
         'fiyat': yemek['fiyat'],
         'aciklama': yemek['aciklama'],
         'resim': yemek['resim'],
       });
-      print('${yemek['ad']} sepete eklendi.');
+      print('${yemek['ad']} eklendi.');
     } catch (e) {
       print('Hata: $e');
+    }
+  }
+
+  Future<void> favla(int index) async {
+    try {
+      final yemek = yemekListesi[index];
+      await FirebaseFirestore.instance.collection('Favori').add({
+        'yemek': yemek['ad'],
+        'fiyat': yemek['fiyat'],
+        'aciklama': yemek['aciklama'],
+        'resim': yemek['resim'],
+      });
+      print('${yemek['ad']} eklendi.');
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  void toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+
+    if (isFavoriteList[index]) {
+      favla(index);
     }
   }
 
@@ -92,11 +124,11 @@ class _KonyaScreenState extends State<KonyaScreen> {
       appBar: AppBar(
         backgroundColor: Colors.lime,
         title: const Text('Yemekcii Gonya Yemekleri'),
-        // App Bar başlığı
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // İlk yemek kartı
             Stack(
               children: [
                 SafeArea(
@@ -109,16 +141,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/dugunpilav.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/dugunpilav.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(0);
+                    },
+                    icon: Icon(
+                      isFavoriteList[0]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -136,17 +185,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Düğün Pilavı",
-                        style: TextStyle(
+                        yemekListesi[0]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "90 TL",
-                        style: TextStyle(
+                        yemekListesi[0]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -157,9 +206,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya düğün pilavı, genellikle düğünlerde veya özel kutlamalarda servis edilen bir pilav türüdür. Bu pilav, pilav tanelerinin birbirine yapışmadığı, uzun ve gevrek bir yapıya sahiptir. Görüntü olarak beyaz ve tane taneli bir pilavdır.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[0]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -172,18 +221,14 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () =>
-                          sepeteEkle(0), // Mercimek Çorbası için indeks 0
-                      child: Text(
+                      onPressed: () => sepeteEkle(0),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -197,16 +242,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/yagsomunu.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/yagsomunu.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(1);
+                    },
+                    icon: Icon(
+                      isFavoriteList[1]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -224,17 +286,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Yağ Somunu",
-                        style: TextStyle(
+                        yemekListesi[1]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "80 TL ",
-                        style: TextStyle(
+                        yemekListesi[1]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -245,9 +307,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "- Konya yağ somunu, yine Türk mutfağına özgü bir lezzet ve Konya'nın meşhur tatlarından biridir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[1]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -261,16 +323,13 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(1),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 25,
             ),
             Stack(
               children: [
@@ -284,16 +343,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/etliekmek.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/etliekmek.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(2);
+                    },
+                    icon: Icon(
+                      isFavoriteList[2]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -311,17 +387,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Etli Ekmek",
-                        style: TextStyle(
+                        yemekListesi[2]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "70 TL ",
-                        style: TextStyle(
+                        yemekListesi[2]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -332,9 +408,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya'nın en ünlü yemeklerinden biridir. İnce hamurun üzerine kıyma, domates, biber, soğan ve baharatlarla hazırlanan bir tür pide şeklindeki yemeğe verilen isimdir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[2]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -348,7 +424,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(2),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
@@ -368,16 +444,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/manti.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/manti.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(3);
+                    },
+                    icon: Icon(
+                      isFavoriteList[3]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -395,17 +488,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Konya Mantısı",
-                        style: TextStyle(
+                        yemekListesi[3]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "80 TL ",
-                        style: TextStyle(
+                        yemekListesi[3]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -416,9 +509,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya'ya özgü bir mantı çeşididir. İnce hamurdan yapılan mantıların içerisinde kıyma, soğan ve baharatlar bulunur. Üzerine yoğurt ve salça ile servis edilir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[3]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -432,13 +525,10 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         primary: Colors.lime,
                       ),
                       onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),
@@ -455,16 +545,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/bamya.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/bamya.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(4);
+                    },
+                    icon: Icon(
+                      isFavoriteList[4]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -482,17 +589,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Bamya Çorbası",
-                        style: TextStyle(
+                        yemekListesi[4]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "40 TL ",
-                        style: TextStyle(
+                        yemekListesi[4]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -503,9 +610,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya mutfağında bamya çorbası da sıkça yapılan bir çorbadır. Bamya, et, soğan ve baharatlarla pişirilerek hazırlanan bu çorba oldukça lezzetlidir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[4]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -518,14 +625,11 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      onPressed: () => sepeteEkle(4),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),
@@ -542,16 +646,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/ayvaas.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/ayvaas.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(5);
+                    },
+                    icon: Icon(
+                      isFavoriteList[5]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -569,17 +690,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Ayva Aşı",
-                        style: TextStyle(
+                        yemekListesi[5]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "65 TL ",
-                        style: TextStyle(
+                        yemekListesi[5]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -590,9 +711,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya'nın tatlı çeşitlerinden biridir. Ayva, şeker ve su ile kaynatılarak hazırlanan bu tatlı, üzerine ceviz veya fındık ile servis edilir.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[5]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -605,14 +726,11 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      onPressed: () => sepeteEkle(5),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),
@@ -629,16 +747,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/mevlana.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/mevlana.jpeg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(6);
+                    },
+                    icon: Icon(
+                      isFavoriteList[6]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -656,17 +791,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Mevlana Çorbası",
-                        style: TextStyle(
+                        yemekListesi[6]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "80 TL ",
-                        style: TextStyle(
+                        yemekListesi[6]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -677,9 +812,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya'da özel günlerde ve dini törenlerde sıkça yapılan bir çorbadır. İçerisinde nohut, pirinç, et, soğan, mercimek ve baharatlar bulunur.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[5]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -692,14 +827,11 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      onPressed: () => sepeteEkle(6),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),
@@ -716,16 +848,33 @@ class _KonyaScreenState extends State<KonyaScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/tirit.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            )),
+                          image: DecorationImage(
+                            image: AssetImage("assets/tirit.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      toggleFavorite(7);
+                    },
+                    icon: Icon(
+                      isFavoriteList[7]
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ],
@@ -743,17 +892,17 @@ class _KonyaScreenState extends State<KonyaScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
-                        "Tirit",
-                        style: TextStyle(
+                        yemekListesi[7]['ad'],
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "130 TL ",
-                        style: TextStyle(
+                        yemekListesi[7]['fiyat'],
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -764,9 +913,9 @@ class _KonyaScreenState extends State<KonyaScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "-Konya tirit, Konya yöresine özgü bir yemek çeşididir. Tirit, genellikle bayramlarda, düğünlerde veya özel günlerde pişirilen bir et yemeğidir. Tirit, ağırlıklı olarak dana eti kullanılarak hazırlanır.",
-                    style: TextStyle(
+                  Text(
+                    yemekListesi[7]['aciklama'],
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
@@ -779,14 +928,11 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.lime,
                       ),
-                      onPressed: () => sepeteEkle(3),
-                      child: Text(
+                      onPressed: () => sepeteEkle(7),
+                      child: const Text(
                         "Sepete Ekle",
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 25,
                   ),
                 ],
               ),

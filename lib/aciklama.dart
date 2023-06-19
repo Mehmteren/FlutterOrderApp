@@ -15,6 +15,25 @@ class AciklamaPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 275,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      "assets/yemekci.jpg",
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Text(
                 'Yemekcii Sipariş Uygulaması ile Lezzeti Kapınıza Getirin!',
                 style: TextStyle(
@@ -39,6 +58,19 @@ class AciklamaPage extends StatelessWidget {
                 'Özel Kampanyalar ve İndirimler: Yemek Sipariş Uygulaması, kullanıcılarına sürekli olarak özel kampanyalar ve indirimler sunar. Restoranların güncel indirimlerini takip edebilir, kampanyalı menülerden faydalanabilirsiniz. Bu sayede hem damak zevkinize uygun yemekleri uygun fiyatlarla deneyebilir, hem de bütçenizi koruyabilirsiniz.\n\n'
                 'Kişiselleştirilmiş Tavsiyeler: Yemek Sipariş Uygulaması, kullanıcılarına kişiselleştirilmiş tavsiyeler sunarak lezzet deneyiminizi daha da zenginleştirir. Sipariş geçmişinizi analiz ederek sizin için en uygun yemekleri önerir, sevdiğiniz restoranları ve yemekleri hatırlar. Böylece her seferinde size özel seçenekleri keşfedebilirsiniz.\n',
                 style: TextStyle(fontSize: 18),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  margin: EdgeInsets.only(top: 16),
+                  child: Text(
+                    'Yemekcii Kurucusu Mehmet Eren',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
