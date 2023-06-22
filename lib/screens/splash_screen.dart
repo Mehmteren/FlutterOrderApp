@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/kapp.jpg"),
+            image: AssetImage("assets/dünya1.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen>
                   hintText: 'Mail giriniz',
                   hintStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: Colors.black.withOpacity(0.3),
+                  fillColor: Colors.black.withOpacity(0.4),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
@@ -146,7 +146,7 @@ class _SplashScreenState extends State<SplashScreen>
                   hintText: 'Şifre giriniz',
                   hintStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: Colors.black.withOpacity(0.3),
+                  fillColor: Colors.black.withOpacity(0.4),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,

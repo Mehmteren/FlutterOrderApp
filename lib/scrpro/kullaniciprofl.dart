@@ -58,12 +58,12 @@ class _KullaniciProfilPageState extends State<KullaniciProfilPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kullanıcı Kayıt'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green[200],
       ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/kapp.jpg'),
+            image: AssetImage('assets/yesilk.jpg'),
             fit: BoxFit.cover,
           ),
         ),
