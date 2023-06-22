@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
                 return Center(child: Text('beklenilmeyen bir hata oluştu'));
               } else if (snapshot.hasData) {
                 return SplashScreen(
-                  title: 'Flutter Demo Home Page',
+                  title: 'Flutter giris',
                 );
               } else {
                 return Center(child: CircularProgressIndicator());

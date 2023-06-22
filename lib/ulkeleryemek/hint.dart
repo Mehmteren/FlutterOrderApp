@@ -57,7 +57,6 @@ class _HintScreenState extends State<HintScreen> {
         'yemek': yemek['ad'],
         'fiyat': yemek['fiyat'],
         'aciklama': yemek['aciklama'],
-        'resim': yemek['resim'],
       });
       print('${yemek['ad']} eklendi.');
     } catch (e) {
@@ -122,7 +121,7 @@ class _HintScreenState extends State<HintScreen> {
                       isFavoriteList[0]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -223,7 +222,7 @@ class _HintScreenState extends State<HintScreen> {
                       isFavoriteList[1]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -324,7 +323,7 @@ class _HintScreenState extends State<HintScreen> {
                       isFavoriteList[2]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),

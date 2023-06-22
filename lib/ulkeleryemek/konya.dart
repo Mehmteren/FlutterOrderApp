@@ -165,7 +165,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[0]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -266,7 +266,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[1]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -367,7 +367,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[2]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -468,7 +468,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[3]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -569,7 +569,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[4]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -670,7 +670,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[5]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -771,7 +771,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[6]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -872,7 +872,7 @@ class _KonyaScreenState extends State<KonyaScreen> {
                       isFavoriteList[7]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),

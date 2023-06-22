@@ -129,7 +129,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       isFavoriteList[0]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -230,7 +230,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       isFavoriteList[1]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -331,7 +331,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       isFavoriteList[2]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -432,7 +432,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       isFavoriteList[3]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),

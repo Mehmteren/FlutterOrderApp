@@ -14,7 +14,7 @@ import '../ulkeleryemek/japon.dart';
 import '../ulkeleryemek/konya.dart';
 
 void openWebsite() async {
-  var url = 'https://www.youtube.com/shorts/Z9YXeyrKnZw';
+  var url = 'https://www.gastronomiturkey.com/kategori/guncel-haberler';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Notlar',
+            label: 'Favoriler',
             icon: Icon(
               Icons.favorite,
               size: 32,
@@ -115,10 +115,8 @@ class _HomePageState extends State<HomePage> {
                               openWebsite();
                             },
                             title: Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .center, // İkonu sağa hizalama
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                // İkon ile container arasına boşluk eklemek için SizedBox
                                 Icon(
                                   Icons.newspaper,
                                   size: 50,
@@ -466,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onLongPress: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

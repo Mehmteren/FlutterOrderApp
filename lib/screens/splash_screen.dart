@@ -123,10 +123,10 @@ class _SplashScreenState extends State<SplashScreen>
               TextField(
                 controller: _kullaniciadi,
                 decoration: InputDecoration(
-                  hintText: 'Kullanıcı Adınızı giriniz',
+                  hintText: 'Mail giriniz',
                   hintStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: Colors.black.withOpacity(0.6),
+                  fillColor: Colors.black.withOpacity(0.3),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
@@ -143,10 +143,10 @@ class _SplashScreenState extends State<SplashScreen>
               TextField(
                 controller: _sifre,
                 decoration: InputDecoration(
-                  hintText: 'Şifrenize Giriniz',
+                  hintText: 'Şifre giriniz',
                   hintStyle: TextStyle(color: Colors.white),
                   filled: true,
-                  fillColor: Colors.black.withOpacity(0.6),
+                  fillColor: Colors.black.withOpacity(0.3),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
@@ -179,15 +179,14 @@ class _SplashScreenState extends State<SplashScreen>
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Geçersiz kullanıcı adı veya şifre.'),
+                          content: Text('Geçersiz mail veya şifre.'),
                         ),
                       );
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(
-                            'Lütfen kullanıcı adınızı ve şifrenizi giriniz.'),
+                        content: Text('Mailinizi ve şifrenizi giriniz.'),
                       ),
                     );
                   }

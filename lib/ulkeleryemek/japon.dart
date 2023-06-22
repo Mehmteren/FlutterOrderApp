@@ -128,7 +128,7 @@ class _JaponScreenState extends State<JaponScreen> {
                       isFavoriteList[0]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -229,7 +229,7 @@ class _JaponScreenState extends State<JaponScreen> {
                       isFavoriteList[1]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -330,7 +330,7 @@ class _JaponScreenState extends State<JaponScreen> {
                       isFavoriteList[2]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),
@@ -431,7 +431,7 @@ class _JaponScreenState extends State<JaponScreen> {
                       isFavoriteList[3]
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.lime,
                       size: 30,
                     ),
                   ),

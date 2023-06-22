@@ -8,8 +8,8 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
-  final String databaseName = 'myDatabase.db';
-  final TextEditingController nameController = TextEditingController();
+  final String databaseNot = 'myNotlarım.db';
+  final TextEditingController notController = TextEditingController();
   List<Map<String, dynamic>> queryResults = [];
 
   @override
@@ -20,7 +20,7 @@ class _BasePageState extends State<BasePage> {
 
   Future<Database> _openDatabase() async {
     final String databasePath = await getDatabasesPath();
-    final String path = join(databasePath, databaseName);
+    final String path = join(databasePath, databaseNot);
 
     return openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
@@ -31,9 +31,9 @@ class _BasePageState extends State<BasePage> {
 
   Future<void> _addData() async {
     final Database database = await _openDatabase();
-    final String name = nameController.text;
+    final String not = notController.text;
 
-    await database.insert('myTable', {'name': name});
+    await database.insert('myTable', {'name': not});
     _queryData();
   }
 
@@ -79,7 +79,7 @@ class _BasePageState extends State<BasePage> {
                 child: Padding(
                   padding: EdgeInsets.all(8),
                   child: Text(
-                    'Not Ekle :',
+                    'Not Ekle ',
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class _BasePageState extends State<BasePage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: TextField(
-                  controller: nameController,
+                  controller: notController,
                   style: TextStyle(
                     color: Colors.lime, // Yazı rengi lime olarak güncellendi
                   ),

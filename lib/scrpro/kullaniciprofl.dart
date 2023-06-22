@@ -71,7 +71,7 @@ class _KullaniciProfilPageState extends State<KullaniciProfilPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const SizedBox(height: 55),
+              const SizedBox(height: 160),
               TextField(
                 controller: _kullaniciAdiController,
                 decoration: InputDecoration(
