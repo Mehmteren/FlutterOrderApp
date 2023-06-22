@@ -422,7 +422,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onLongPress: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

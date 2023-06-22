@@ -86,7 +86,7 @@ class _IspanyaScreenState extends State<IspanyaScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lime,
-        title: const Text('Yemekcii Türkiye Yemekleri'),
+        title: const Text('Yemekcii İspanyol Yemekleri'),
       ),
       body: SingleChildScrollView(
         child: Column(
