@@ -10,9 +10,9 @@ Ayrıca kullanıcı dostu fonksiyonlar sunar.
 ## Uygulama Ekran Görüntüleri
 
 <p align="center">
-  <img src="readmeimg/img1.png" style="width:250px; height:450px; object-fit: cover;" alt="Ana Sayfa" />
-  <img src="readmeimg/img2.png" style="width:250px; height:450px; object-fit: cover;" alt="Ürün Detay" />
-  <img src="readmeimg/img4.png" style="width:250px; height:450px; object-fit: cover;" alt="Sepet Ekranı" />
+  <img src="readmeimg/img1.png" style="width:250px; height:400px; object-fit: cover;" alt="Ana Sayfa" />
+  <img src="readmeimg/img2.png" style="width:250px; height:400px; object-fit: cover;" alt="Ürün Detay" />
+  <img src="readmeimg/img4.png" style="width:250px; height:400px; object-fit: cover;" alt="Sepet Ekranı" />
 </p>
 
 
