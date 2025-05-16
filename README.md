@@ -11,8 +11,8 @@ Ayrıca kullanıcı dostu fonksiyonlar sunar.
 
 <p align="center">
   <img src="readmeimg/img1.png" width="250"; height:"300"; alt="Ana Sayfa">
-  <img src="readmeimg/img2.png" width="250" alt="Ürün Detay">
-  <img src="readmeimg/img4.png" width="250" alt="Sepet Ekranı">
+  <img src="readmeimg/img2.png" width="250"; height:"300"; alt="Ürün Detay">
+  <img src="readmeimg/img4.png" width="250"; height:"300"; alt="Sepet Ekranı">
 </p>
 
 ---
