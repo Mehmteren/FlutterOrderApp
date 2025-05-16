@@ -6,6 +6,17 @@ Ayrıca ürün detaylarını görüntüleme, harici link açma ve uygulama içi 
 
 ---
 
+
+## Uygulama Ekran Görüntüleri
+
+<p align="center">
+  <img src="readmeimg/img1.png" width="250" alt="Ana Sayfa">
+  <img src="readmeimg/img2.png" width="250" alt="Ürün Detay">
+  <img src="readmeimg/img3.png" width="250" alt="Sepet Ekranı">
+</p>
+
+---
+
 ## Özellikler
 
 - **Kullanıcı Kaydı ve Girişi**  
@@ -98,12 +109,6 @@ Ayrıca ürün detaylarını görüntüleme, harici link açma ve uygulama içi 
 - URL Launcher ile ürün detaylarından harici sitelere yönlendirme.
 
 ---
-
-## Ekran Görüntüsü
-
-<p align="center">
-  <img src="assets/screenshot_yemekcii.png" width="250" alt="Yemekcii Uygulama Ekranı">
-</p>
 
 ---
 
