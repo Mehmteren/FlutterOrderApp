@@ -1,65 +1,117 @@
+# Yemekcii - Flutter Yemek Sipariş ve Keşif Uygulaması
 
-# Yemekcii - Yemek Sipariş Uygulaması
+Yemekcii, Flutter ile geliştirilen, Firebase ve SQLite tabanlı modern bir yemek sipariş ve keşif uygulamasıdır.  
+Kullanıcıların güvenli bir şekilde kayıt olması, giriş yapması, ürünleri keşfetmesi, sepetine ürün eklemesi, favori listesine ürün eklemesi gibi birçok özelliği destekler.  
+Ayrıca ürün detaylarını görüntüleme, harici link açma ve uygulama içi slider gibi kullanıcı dostu fonksiyonlar sunar.
 
-Yemekcii, Flutter ile geliştirilen ve Firebase altyapısını kullanan modern bir yemek sipariş uygulamasıdır. Kullanıcıların kolayca kayıt olmasına, giriş yapmasına, ürünleri görüntülemesine, sepetine eklemesine ve favorilerine eklemesine olanak tanır.
+---
 
 ## Özellikler
 
-- **Kullanıcı Kaydı ve Girişi**: Firebase Authentication kullanılarak güvenli kayıt ve giriş işlemleri.
-- **Ürün Listeleme**: Firebase Firestore'dan dinamik olarak yemek ürünlerinin listelenmesi.
-- **Sepete Ürün Ekleme**: Kullanıcılar istedikleri ürünleri sepetlerine ekleyebilir, sepet içeriğini görüntüleyebilir ve yönetebilir.
-- **Favorilere Ekleme**: Beğenilen ürünler favorilere eklenebilir ve kolay erişim sağlanabilir.
-- **Gerçek Zamanlı Veri Senkronizasyonu**: Firestore ile veriler anlık güncellenir.
-- **Responsive Tasarım**: Hem Android hem iOS cihazlarda sorunsuz çalışır.
+- **Kullanıcı Kaydı ve Girişi**  
+  Firebase Authentication ile e-posta ve şifre kullanarak güvenli kullanıcı yönetimi.
 
-## Kullanılan Teknolojiler
+- **Ürün Listeleme ve Keşfetme**  
+  Firestore'dan anlık veri çekimi ile ürünleri ve içerikleri görüntüleyip keşfetme.
 
-- [Flutter](https://flutter.dev/) — Uygulama geliştirme framework'ü
-- [Firebase Authentication](https://firebase.google.com/products/auth) — Kullanıcı kimlik doğrulama
-- [Cloud Firestore](https://firebase.google.com/products/firestore) — Gerçek zamanlı veritabanı
-- [Firebase Storage](https://firebase.google.com/products/storage) — Ürün resimleri için dosya depolama
+- **Sepet Yönetimi (Offline Destekli)**  
+  SQLite kullanılarak çevrimdışı ve çevrimiçi modda ürünleri sepete ekleme ve yönetme.
+
+- **Favorilere Ekleme**  
+  Beğenilen ürünleri favorilere ekleyerek kolay erişim.
+
+- **Carousel Slider ile Ürün Tanıtımı**  
+  Popüler yemekleri ve fırsatları slider ile tanıtma.
+
+- **Harici Linklerle Ürün Tanıtımı**  
+  Ürün detaylarından harici site ve bağlantılara yönlendirme (URL Launcher).
+
+- **HTTP API Kullanımı**  
+  Dış kaynaklardan veri alma ve işleme (örneğin öneri sistemi, ürün yorumları).
+
+- **Responsive ve Modern Arayüz**  
+  Tüm ekran boyutlarına uyumlu modern ve kullanıcı dostu tasarım.
+
+---
+
+## Kullanılan Teknolojiler ve Kütüphaneler
+
+| Teknoloji | Açıklama |
+|-----------|----------|
+| Flutter | Mobil uygulama geliştirme framework'ü |
+| Firebase Authentication | Kullanıcı kimlik doğrulama |
+| Cloud Firestore | Gerçek zamanlı NoSQL veritabanı |
+| Firebase Storage | Ürün ve içerik görselleri için dosya depolama |
+| SQLite (sqflite) | Yerel veritabanı ve çevrimdışı sepet yönetimi |
+| HTTP | Harici API'lerden veri alma |
+| Carousel Slider | Ürünler ve banner'lar için slider |
+| URL Launcher | Harici bağlantı ve site açma |
+| Path | Dosya yolu yönetimi |
+
+---
 
 ## Kurulum ve Çalıştırma
 
 1. Repository'yi klonlayın:
     ```bash
     git clone <repo-link>
-    cd Yemekcii
+    cd yemekcii
     ```
 
-2. Gerekli Flutter paketlerini yükleyin:
+2. Flutter bağımlılıklarını yükleyin:
     ```bash
     flutter pub get
     ```
 
-3. Firebase projesi oluşturun ve uygulamanızı Firebase'e kaydedin.  
-   - Android ve iOS için gerekli `google-services.json` ve `GoogleService-Info.plist` dosyalarını indirin.
-   - Bu dosyaları sırasıyla `android/app/` ve `ios/Runner/` klasörlerine yerleştirin.
+3. Firebase kurulumu:
+    - Firebase projenizi oluşturun.
+    - `google-services.json` dosyasını `android/app` dizinine ekleyin.
+    - `GoogleService-Info.plist` dosyasını `ios/Runner` dizinine ekleyin.
 
-4. Firebase Firestore ve Authentication ayarlarını yapılandırın.  
-   - Firestore’da `products` koleksiyonunu oluşturun ve ürün bilgilerini ekleyin.
+4. Firestore'da `products` koleksiyonu ve gerekli dökümanları oluşturun.
 
-5. Uygulamayı çalıştırın:
+5. Uygulamayı başlatın:
     ```bash
     flutter run
     ```
 
-## Uygulama Özellikleri Detayları
+---
 
-### 1. Kayıt Olma ve Giriş Yapma
-- E-posta ve şifre ile kayıt olma.
-- Kayıtlı kullanıcıların giriş yapması.
-- Firebase Authentication üzerinden yönetim.
+## Modüller ve Özellik Detayları
 
-### 2. Ürün Listeleme
-- Firestore'dan ürünlerin anlık çekilmesi.
-- Ürün resmi, adı, açıklaması ve fiyat bilgileri gösterilir.
+### 1. Kullanıcı Yönetimi
+- Firebase Authentication ile kullanıcı kayıt ve giriş işlemleri.
+- Oturum yönetimi ve kullanıcı bilgisi güncelleme.
 
-### 3. Sepet Yönetimi
-- Ürünleri sepete ekleme ve çıkarma.
-- Sepetteki toplam tutar hesaplama.
-- Sepet içeriği ekranda gösterilir.
+### 2. Ürün Yönetimi ve Listeleme
+- Firestore'dan dinamik ürün listesi.
+- Ürün adı, açıklaması, fiyatı ve resmi.
+- Carousel slider üzerinden ürün tanıtımı.
 
-### 4. Favorilere Ekleme
-- Kullanıcı ürünleri favorilere ekleyip çıkarabilir.
-- Favori ürünlere hızlı erişim sağlanır.
+### 3. Sepet ve Favoriler
+- Ürünleri sepete ekleme, çıkarma, güncelleme.
+- SQLite kullanarak çevrimdışı destekli sepet yönetimi.
+- Favorilere ekleme ve favoriler ekranında listeleme.
+
+### 4. API ve Harici Servisler
+- HTTP ile öneri ürün sistemine API bağlantısı.
+- URL Launcher ile ürün detaylarından harici sitelere yönlendirme.
+
+---
+
+## Ekran Görüntüsü
+
+<p align="center">
+  <img src="assets/screenshot_yemekcii.png" width="250" alt="Yemekcii Uygulama Ekranı">
+</p>
+
+---
+
+## Gereksinimler
+
+- Flutter 3.x veya üstü (>=2.19.4 <3.0.0)
+- Android Studio / VSCode
+- Firebase hesabı
+
+---
+
