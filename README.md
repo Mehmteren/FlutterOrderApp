@@ -12,7 +12,7 @@ Ayrıca ürün detaylarını görüntüleme, harici link açma ve uygulama içi 
 <p align="center">
   <img src="readmeimg/img1.png" width="250" alt="Ana Sayfa">
   <img src="readmeimg/img2.png" width="250" alt="Ürün Detay">
-  <img src="readmeimg/img3.png" width="250" alt="Sepet Ekranı">
+  <img src="readmeimg/img4.png" width="250" alt="Sepet Ekranı">
 </p>
 
 ---
