@@ -1,6 +1,6 @@
 # Yemekcii - Flutter Yemek Sipariş ve Keşif Uygulaması
 
-Yemekcii, Flutter ile geliştirilen, Firebase ve SQLite tabanlı modern bir yemek sipariş ve keşif uygulamasıdır.  
+Yemekcii, Flutter ile geliştirilen, Firebase tabanlı modern bir yemek sipariş ve keşif uygulamasıdır.  
 Kullanıcıların güvenli bir şekilde kayıt olması, giriş yapması, ürünleri keşfetmesi, sepetine ürün eklemesi, favori listesine ürün eklemesi gibi birçok özelliği destekler.  
 Ayrıca kullanıcı dostu fonksiyonlar sunar.
 
